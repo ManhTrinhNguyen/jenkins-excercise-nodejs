@@ -4,9 +4,13 @@ pipeline {
     stages {
         stage('Increment Version') {
             steps {
-                echo 'Incrementing version ...' 
-                sh 'npm install'
-                sh 'npm version patch --no-git-tag-version'
+                dir('app') {
+                    echo 'Incrementing version ...' 
+                    sh 'npm install'
+                    sh 'npm version patch --no-git-tag-version'
+                }
+
+                
             }
         }
         stage('Test') {
