@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     dir('app') {
-                        withCredentials([usernamePassword(credentialsId: 'ecr_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        withCredentials([usernamePassword(credentialsId: 'ecr_credential', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             echo 'Logging in to ECR ...'
                             sh "echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin ${ECR_REGISTRY}"
 
