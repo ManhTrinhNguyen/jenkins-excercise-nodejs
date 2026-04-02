@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    env {
+    environment {
         ECR_REGISTRY = '660753258283.dkr.ecr.us-west-1.amazonaws.com'
     }
    
