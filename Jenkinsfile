@@ -46,6 +46,9 @@ pipeline {
 
                         echo 'Building Docker image ...'
                         sh "docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION} ."
+
+                        echo "Pushing Docker image to ECR ..."
+                        sh "docker push ${ECR_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION}"
                     }
                 }
             }
