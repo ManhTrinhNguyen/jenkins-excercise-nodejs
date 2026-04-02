@@ -1,15 +1,12 @@
 pipeline {
     agent any
-    tools {
-        nodejs 'nodejs'
-    }
+   
     stages {
         stage('Increment Version') {
             steps {
                 dir 'app' {
                     echo 'Incrementing version ...' 
-                    sh 'npm install'
-                    sh 'npm version patch --no-git-tag-version'
+                    sh 'node -v'
                 }  
             }
         }
