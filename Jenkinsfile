@@ -4,10 +4,8 @@ pipeline {
     stages {
         stage('Increment Version') {
             steps {
-                dir 'app' {
-                    echo 'Incrementing version ...' 
-                    sh 'node -v'
-                }  
+                echo 'Incrementing version ...' 
+                sh 'node -v'
             }
         }
         stage('Test') {
