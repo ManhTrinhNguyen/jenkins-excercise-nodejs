@@ -5,7 +5,8 @@ pipeline {
             steps {
                 dir 'app' {
                     echo 'Incrementing version ...' 
-                    sh 'npm version patch'
+                    sh 'npm install'
+                    sh 'npm version patch --no-git-tag-version'
                 }  
             }
         }
