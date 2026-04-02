@@ -46,7 +46,7 @@ pipeline {
                             sh "echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin ${ECR_REGISTRY}"
 
                             echo 'Building Docker image ...'
-                            docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION} .
+                            sh "docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION} ."
                         }
                     } 
                 }
