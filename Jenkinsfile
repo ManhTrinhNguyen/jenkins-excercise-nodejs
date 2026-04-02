@@ -1,5 +1,9 @@
 pipeline {
     agent any
+
+    env {
+        ECR_REGISTRY = '660753258283.dkr.ecr.us-west-1.amazonaws.com'
+    }
    
     stages {
         stage('Increment Version') {
@@ -31,6 +35,22 @@ pipeline {
                 }
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dir('app') {
+                        withCredentials([usernamePassword(credentialsId: 'ecr_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            echo 'Logging in to ECR ...'
+                            sh "echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin ${ECR_REGISTRY}"
+
+                            echo 'Building Docker image ...'
+                        }
+                    } 
+                }
+            }
+        }
+
         stage('Deploy') {
             steps {
                 echo 'Deploying.....'
