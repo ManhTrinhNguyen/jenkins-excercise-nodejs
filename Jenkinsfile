@@ -17,14 +17,18 @@ pipeline {
                         env.IMAGE_VERSION = version
 
                         echo "New version: ${version}"
-
                     }
                 }
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
+                script {
+                    dir('app') {
+                        echo 'Running tests ...'
+                        sh 'npm run test'
+                    }
+                }
             }
         }
         stage('Deploy') {
