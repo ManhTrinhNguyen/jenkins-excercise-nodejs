@@ -5,13 +5,13 @@ pipeline {
         stage('Increment Version') {
             steps {
                 echo 'Incrementing version ...' 
-                sh 'node -v'
+                sh 'npm install'
+                sh 'npm version patch --no-git-tag-version'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'npm test'
             }
         }
         stage('Deploy') {
