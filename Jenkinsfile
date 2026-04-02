@@ -40,15 +40,13 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dir('app') {
-                        withCredentials([usernamePassword(credentialsId: 'ecr_credential', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                            echo 'Logging in to ECR ...'
-                            sh "echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin ${ECR_REGISTRY}"
+                    withCredentials([usernamePassword(credentialsId: 'ecr_credential', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        echo 'Logging in to ECR ...'
+                        sh "echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin ${ECR_REGISTRY}"
 
-                            echo 'Building Docker image ...'
-                            sh "docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION} ."
-                        }
-                    } 
+                        echo 'Building Docker image ...'
+                        sh "docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION} ."
+                    }
                 }
             }
         }
