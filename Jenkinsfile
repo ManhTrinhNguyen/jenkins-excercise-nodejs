@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         ECR_REGISTRY = '660753258283.dkr.ecr.us-west-1.amazonaws.com'
+        IMAGE_NAME = 'nodejs'
     }
    
     stages {
@@ -45,6 +46,7 @@ pipeline {
                             sh "echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin ${ECR_REGISTRY}"
 
                             echo 'Building Docker image ...'
+                            docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:${env.IMAGE_VERSION} .
                         }
                     } 
                 }
