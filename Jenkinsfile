@@ -3,8 +3,10 @@ pipeline {
     stages {
         stage('Increment Version') {
             steps {
-                echo 'Incrementing version ...' 
-                sh 'npm version patch'
+                dir 'app' {
+                    echo 'Incrementing version ...' 
+                    sh 'npm version patch'
+                }  
             }
         }
         stage('Test') {
