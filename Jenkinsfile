@@ -4,21 +4,22 @@ pipeline {
     stages {
         stage('Increment Version') {
             steps {
-                dir('app') {
-                    echo 'Incrementing version ...' 
-                    sh 'npm install'
-                    sh 'npm version patch --no-git-tag-version'
-                    def packageJson = readJSON file: 'package.json'
+                script {
+                    dir('app') {
+                        echo 'Incrementing version ...' 
+                        sh 'npm install'
+                        sh 'npm version patch --no-git-tag-version'
 
-                    def version = packageJson.version
+                        def packageJson = readJSON file: 'package.json'
 
-                    env.IMAGE_VERSION = version
+                        def version = packageJson.version
 
-                    echo "New version: ${version}"
-                    
+                        env.IMAGE_VERSION = version
+
+                        echo "New version: ${version}"
+
+                    }
                 }
-
-                
             }
         }
         stage('Test') {
